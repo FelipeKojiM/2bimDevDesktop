@@ -4,13 +4,18 @@
 
 package com.mycompany.unipardigital;
 
+import javax.swing.JFrame;
+import view.ViewPrincipal;
+
 /**
  *
- * @author paulodossantos
+ * @author joaoc
  */
 public class UniparDigital {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        ViewPrincipal view = new ViewPrincipal();
+        view.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        view.setVisible(true);
     }
 }

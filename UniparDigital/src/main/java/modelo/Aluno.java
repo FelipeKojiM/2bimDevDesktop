@@ -4,44 +4,31 @@
  */
 package modelo;
 
+
 /**
  *
- * @author paulodossantos
+ * @author joaoc
  */
 public class Aluno {
+    private Integer ra;
+    private String nome;
+    private String data_nasc;
     
-    private int raAluno;
-    private String nomeAluno;
-    private String dtNascAluno;
-
-    public Aluno() {
+    public Aluno(){
+        
     }
 
-    public int getRaAluno() {
-        return raAluno;
-    }
+    public Integer getRa() { return ra;}
 
-    public void setRaAluno(int raAluno) {
-        this.raAluno = raAluno;
-    }
+    public void setRa(Integer ra) { this.ra = ra; }
 
-    public String getNomeAluno() {
-        return nomeAluno;
-    }
+    public String getNome() { return nome;}
 
-    public void setNomeAluno(String nomeAluno) {
-        this.nomeAluno = nomeAluno;
-    }
+    public void setNome(String nome) { this.nome = nome;}
 
-    public String getDtNascAluno() {
-        return dtNascAluno;
-    }
+    public String getData_nasc() { return data_nasc;}
 
-    public void setDtNascAluno(String dtNascAluno) {
-        this.dtNascAluno = dtNascAluno;
-    }
+    public void setData_nasc(String data_nasc) { this.data_nasc = data_nasc;}
     
-    
-    
-    
+
 }

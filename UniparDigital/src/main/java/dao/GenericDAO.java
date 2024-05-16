@@ -4,76 +4,65 @@
  */
 package dao;
 
-import conexaoBD.ConexaoPostgres;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import conexaoBD.ConexaoPostgres;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 /**
  *
- * @author paulodossantos
+ * @author joaoc
  */
-public abstract class GenericDAO<Objeto> {
+public abstract class GenericDAO<Object> {
     
     public Connection conn = null;
-    
     public GenericDAO(){
         conn = ConexaoPostgres.getConection();
     }
     
-    protected abstract Objeto 
-        construirObjeto(ResultSet rs);
-        
-    public abstract boolean salvar(Objeto obj);     
+    protected abstract Object construirObjeto(ResultSet rs);
     
-    public abstract boolean atualizar(Objeto obj);
+    public abstract boolean salvar(Object obj);
     
-    public ArrayList<Objeto> retornaLista(String sql){
-        
+    public abstract boolean atualizar(Object obj);
+    
+    public ArrayList<Object> retornaLista(String sql){
         PreparedStatement ps;
         ResultSet rs;
-        ArrayList<Objeto>lista = new ArrayList<>();
+        ArrayList<Object> lista = new ArrayList<>();
         
         try {
-            
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
-            
+        
             while(rs.next()){
                 lista.add(construirObjeto(rs));
             }
-            
             ps.close();
             
         } catch (SQLException ex) {
             Logger.getLogger(GenericDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return lista;
+        return lista;  
     }
     
-    public Objeto retornarPeloId(int id, 
-            String tabela, String chavePrimaria){
-        
+    public Object retornarPeloId(int id, String tabela, String chavePrimaria){
         PreparedStatement ps;
         ResultSet rs;
-        Objeto obj = null;
+        Object obj = null;
         
         try {
-            ps = conn.prepareStatement("SELECT * FROM public.\""+tabela+"\" WHERE "+
-                    "\""+chavePrimaria+"\" = ?");
+            ps = conn.prepareStatement("SELECT * FROM public.\""+tabela+"\" WHERE "+"\""+chavePrimaria+"\" = ?");
             ps.setInt(1, id);
             rs = ps.executeQuery();
-            
             if(rs.next()){
-               obj = construirObjeto(rs);
+                obj = construirObjeto(rs);
             }
-            ps.close();
             
+            ps.close();
         } catch (SQLException ex) {
             Logger.getLogger(GenericDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -81,16 +70,10 @@ public abstract class GenericDAO<Objeto> {
         return obj;
     }
     
-    public void delete(int id, String tabela, 
-            String chavePrimaria){
-        
+    public void delete(int id, String tabela, String chavePrimaria){
         PreparedStatement ps;
-        
         try {
-            ps = conn.prepareStatement("DELETE FROM "
-                    + "public.\""+tabela+"\" WHERE \""+
-                    chavePrimaria+"\" = ? ");
-            
+            ps = conn.prepareStatement("DELETE FROM"+"public.\""+tabela+"\" WHERE \""+chavePrimaria+"\" = ? ");
             ps.setInt(1, id);
             ps.executeUpdate();
             ps.close();
@@ -100,4 +83,5 @@ public abstract class GenericDAO<Objeto> {
         }
         
     }
+        
 }
