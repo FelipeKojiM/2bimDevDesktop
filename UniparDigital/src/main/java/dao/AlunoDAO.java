@@ -10,6 +10,10 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Aluno;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -72,4 +76,19 @@ public class AlunoDAO extends GenericDAO<Aluno>{
         return false;
     }
     
+    public void gerarRelatorio(){
+              try {
+                        //responsavel em carregar o relatorio
+                        String relatorioPath =  "Relatorios/relAluno.jasper";
+                        JasperPrint printer = JasperFillManager.fillReport(relatorioPath, null, conn);
+                        
+                        //exibicao
+                        JasperViewer view = new JasperViewer(printer, false);
+                        
+                        view.setVisible(true);
+                        
+              } catch (JRException ex) {
+                        Logger.getLogger(AlunoDAO.class.getName()).log(Level.SEVERE, null, ex);
+              }
+    }
 }

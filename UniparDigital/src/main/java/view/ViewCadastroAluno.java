@@ -122,8 +122,6 @@ public class ViewCadastroAluno extends javax.swing.JFrame {
                     tfNumero = new javax.swing.JTextField();
                     jLabel9 = new javax.swing.JLabel();
 
-                    setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
                     jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                     jLabel1.setText("Cadastro de Alunos");
 
